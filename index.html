@@ -629,6 +629,120 @@ a { color: inherit; text-decoration: none; }
   font-size: 16px;
 }
 
+
+.gallery-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  background: rgba(168, 85, 247, 0.06);
+  border-radius: 14px;
+  line-height: 1.6;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ref-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #FFFFFF, #FAF5FF);
+  border: 1.5px solid rgba(168, 85, 247, 0.12);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  min-height: 100%;
+}
+
+.ref-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 24px rgba(168, 85, 247, 0.14);
+}
+
+.ref-image-wrap {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, rgba(248, 232, 238, 0.7), rgba(240, 230, 255, 0.9));
+  overflow: hidden;
+}
+
+.ref-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ref-image.fallback {
+  object-fit: contain;
+  padding: 20px;
+}
+
+.ref-chip {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-deep);
+  letter-spacing: 0.02em;
+}
+
+.ref-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.ref-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.ref-caption {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.ref-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ref-link {
+  margin-top: auto;
+  padding-top: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
 .celeb-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1068,6 +1182,344 @@ const TYPES = [
   }
 ];
 
+
+const REFERENCE_GALLERIES = {
+  clean_girl: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '글로시 내추럴 메이크업 레퍼런스',
+      caption: '맑은 피부 표현과 은은한 립 무드 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/woman-doing-makeup-12323040/',
+      image: 'https://images.pexels.com/photos/12323040/pexels-photo-12323040.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '미니멀 뉴트럴 패션 레퍼런스',
+      caption: '화이트·베이지 톤의 정돈된 실루엣 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/elegant-african-woman-in-minimalist-fashion-portrait-35644553/',
+      image: 'https://images.pexels.com/photos/35644553/pexels-photo-35644553.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Hailey Bieber 레퍼런스',
+      caption: '클린걸 무드의 대표 셀럽 이미지',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Hailey_Bieber_at_the_2026_WWD_Style_Awards.png',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Hailey_Bieber_at_the_2026_WWD_Style_Awards.png?width=1200'
+    }
+  ],
+  lovely_romantic: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '핑크 로맨틱 메이크업 레퍼런스',
+      caption: '사랑스러운 블러셔와 글리터 포인트 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/woman-wearing-pink-makeup-4977513/',
+      image: 'https://images.pexels.com/photos/4977513/pexels-photo-4977513.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '플로럴·코케트 패션 레퍼런스',
+      caption: '플라워 드레스와 리본 무드 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/a-woman-in-pink-floral-dress-13196294/',
+      image: 'https://images.pexels.com/photos/13196294/pexels-photo-13196294.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Sydney Sweeney 레퍼런스',
+      caption: '로맨틱하면서도 글래머러스한 셀럽 무드',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Sydney_Sweeney_at_the_2024_Toronto_International_Film_Festival_04.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sydney_Sweeney_at_the_2024_Toronto_International_Film_Festival_04.jpg?width=1200'
+    }
+  ],
+  chic_modern: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '샤프한 모던 메이크업 레퍼런스',
+      caption: '정돈된 라인과 세련된 무드 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/close-up-shot-of-a-pretty-woman-13022138/',
+      image: 'https://images.pexels.com/photos/13022138/pexels-photo-13022138.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '시크 모노톤 패션 레퍼런스',
+      caption: '올블랙·미니멀 실루엣 스타일 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/stylish-woman-posing-in-casual-outfit-34977351/',
+      image: 'https://images.pexels.com/photos/34977351/pexels-photo-34977351.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Bella Hadid 레퍼런스',
+      caption: '도시적인 스트리트 시크 무드 셀럽',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Bella_Hadid_Cannes_2018.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Bella_Hadid_Cannes_2018.jpg?width=1200'
+    }
+  ],
+  vintage_retro: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '브라운 톤 레트로 메이크업 레퍼런스',
+      caption: '70s 감성의 음영과 빈티지 컬러 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/close-up-photo-of-woman-with-eye-makeup-14524691/',
+      image: 'https://images.pexels.com/photos/14524691/pexels-photo-14524691.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '레트로 패션 레퍼런스',
+      caption: '필름 무드가 나는 레트로 스타일 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/beautiful-woman-in-retro-fashion-5397289/',
+      image: 'https://images.pexels.com/photos/5397289/pexels-photo-5397289.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Alexa Chung 레퍼런스',
+      caption: '빈티지 믹스 스타일의 대표 셀럽',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Alexa_Chung_2015.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Alexa_Chung_2015.jpg?width=1200'
+    }
+  ],
+  sporty_healthy: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '헬시 스킨 메이크업 레퍼런스',
+      caption: '과하지 않은 건강광 피부 표현 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/woman-in-brown-tank-top-9262841/',
+      image: 'https://images.pexels.com/photos/9262841/pexels-photo-9262841.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '애슬레저 패션 레퍼런스',
+      caption: '셋업·볼캡·스니커즈 무드 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/a-woman-wearing-sportswear-14205006/',
+      image: 'https://images.pexels.com/photos/14205006/pexels-photo-14205006.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Pamela Reif 레퍼런스',
+      caption: '스포티 헬시 무드와 잘 맞는 셀럽 이미지',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Pamela_Reif.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Pamela_Reif.jpg?width=1200'
+    }
+  ],
+  dark_academia: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '무드 있는 딥톤 메이크업 레퍼런스',
+      caption: '브라운 음영과 차분한 분위기 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/young-woman-in-a-dark-makeup-look-17948352/',
+      image: 'https://images.pexels.com/photos/17948352/pexels-photo-17948352.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '고전적 다크 아카데미아 패션 레퍼런스',
+      caption: '차분한 톤과 레이어링 무드 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/a-woman-undressing-a-knitted-sweater-8453658/',
+      image: 'https://images.pexels.com/photos/8453658/pexels-photo-8453658.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Emma Watson 레퍼런스',
+      caption: '지적이고 클래식한 이미지 참고용',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Emma_Watson_Cannes_2013.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Emma_Watson_Cannes_2013.jpg?width=1200'
+    }
+  ],
+  balletcore: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '소프트 핑크 메이크업 레퍼런스',
+      caption: '은은한 핑크 톤과 맑은 베이스 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/a-close-up-shot-of-a-woman-with-eye-makeup-6140950/',
+      image: 'https://images.pexels.com/photos/6140950/pexels-photo-6140950.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '화이트 드레스·발레코어 레퍼런스',
+      caption: '여린 실루엣과 우아한 무드 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/a-beautiful-woman-in-white-dress-4554217/',
+      image: 'https://images.pexels.com/photos/4554217/pexels-photo-4554217.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Natalie Portman 레퍼런스',
+      caption: '발레코어 무드와 연결되는 대표 셀럽',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Natalie_Portman_Cannes_2015_5.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Natalie_Portman_Cannes_2015_5.jpg?width=1200'
+    }
+  ],
+  girl_crush: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '볼드 메이크업 레퍼런스',
+      caption: '스모키 아이와 강한 포인트 메이크업 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/close-up-portrait-with-blue-makeup-and-earrings-30755171/',
+      image: 'https://images.pexels.com/photos/30755171/pexels-photo-30755171.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '강렬한 블랙 패션 레퍼런스',
+      caption: '도회적인 카리스마 룩 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/photograph-of-a-woman-in-a-black-top-standing-7578387/',
+      image: 'https://images.pexels.com/photos/7578387/pexels-photo-7578387.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Dua Lipa 레퍼런스',
+      caption: '퍼포먼스형 걸크러시 무드 셀럽',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:DuaLipa-byPhilipRomano.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/DuaLipa-byPhilipRomano.jpg?width=1200'
+    }
+  ],
+  cozy_natural: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '내추럴 누드 메이크업 레퍼런스',
+      caption: '편안하고 과하지 않은 데일리 메이크업 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/woman-while-doing-makeup-12322890/',
+      image: 'https://images.pexels.com/photos/12322890/pexels-photo-12322890.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: '코지 니트 패션 레퍼런스',
+      caption: '니트·웜톤·포근한 질감 스타일 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/woman-in-a-white-knitted-sweater-posing-with-her-hands-on-her-head-10215230/',
+      image: 'https://images.pexels.com/photos/10215230/pexels-photo-10215230.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Dakota Johnson 레퍼런스',
+      caption: '편안한 분위기의 셀럽 무드 참고용',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/Category:Dakota_Johnson',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Dakota_Johnson_(cropped).jpg?width=1200'
+    }
+  ],
+  y2k_pop: [
+    {
+      label: '메이크업',
+      emoji: '💄',
+      title: '글리터 Y2K 메이크업 레퍼런스',
+      caption: '팝한 컬러와 반짝임 포인트 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/woman-in-glamour-makeup-wearing-a-pink-fluffy-hat-12940393/',
+      image: 'https://images.pexels.com/photos/12940393/pexels-photo-12940393.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '패션',
+      emoji: '👗',
+      title: 'Y2K 패션 레퍼런스',
+      caption: '핑크 톱·데님·팝 무드 스타일 참고용',
+      source: 'Pexels',
+      link: 'https://www.pexels.com/photo/a-girl-in-pink-top-and-denim-skirt-17243500/',
+      image: 'https://images.pexels.com/photos/17243500/pexels-photo-17243500.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    },
+    {
+      label: '셀럽',
+      emoji: '⭐',
+      title: 'Doja Cat 레퍼런스',
+      caption: '대담하고 컬러풀한 팝스타 무드 셀럽',
+      source: 'Wikimedia Commons',
+      link: 'https://commons.wikimedia.org/wiki/File:Doja_Cat_promo_image.jpg',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Doja_Cat_promo_image.jpg?width=1200'
+    }
+  ]
+};
+
+function makeFallbackData(label, emoji) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fff7fb"/>
+          <stop offset="100%" stop-color="#f0e6ff"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="1000" rx="40" fill="url(#g)"/>
+      <text x="400" y="430" text-anchor="middle" font-size="120">${emoji}</text>
+      <text x="400" y="560" text-anchor="middle" font-family="Pretendard, Arial, sans-serif" font-size="48" font-weight="700" fill="#7C3AED">${label}</text>
+      <text x="400" y="630" text-anchor="middle" font-family="Pretendard, Arial, sans-serif" font-size="28" fill="#555">reference image</text>
+    </svg>`;
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+
+function getPreviewImage(typeId) {
+  return REFERENCE_GALLERIES[typeId]?.[0]?.image || 'https://images.unsplash.com/photo-1522335789203-aaa8a73c1e02?w=1200&q=80';
+}
+
+function renderReferenceGallery(type) {
+  const items = REFERENCE_GALLERIES[type.id] || [];
+  return `
+    <div class="gallery-note">무료 사용 가능한 소스 기준으로 선별한 레퍼런스입니다. 이미지를 누르면 원본 출처 페이지로 이동합니다.</div>
+    <div class="gallery-grid">
+      ${items.map(item => `
+        <a class="ref-card" href="${item.link}" target="_blank" rel="noopener">
+          <div class="ref-image-wrap">
+            <img class="ref-image" src="${item.image}" alt="${type.name} ${item.label} 레퍼런스" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=makeFallbackData('${item.label}','${item.emoji}');this.classList.add('fallback');">
+            <div class="ref-chip">${item.emoji} ${item.label}</div>
+          </div>
+          <div class="ref-body">
+            <div class="ref-title">${item.title}</div>
+            <div class="ref-caption">${item.caption}</div>
+            <div class="ref-meta">${item.source} · 무료 소스</div>
+            <div class="ref-link">원본 보기 ↗</div>
+          </div>
+        </a>
+      `).join('')}
+    </div>
+  `;
+}
+
 const QUESTIONS = [
   {
     id: 1,
@@ -1435,9 +1887,12 @@ function renderResult(type, fromUrl) {
   showScreen('Result');
 
   // Update meta tags dynamically
+  const previewImage = getPreviewImage(type.id);
   document.title = `나의 추구미는 [${type.name}] ${type.emoji} - 추구미 테스트`;
   updateMeta('og:title', `나의 추구미는 [${type.name}]! ${type.emoji}`);
   updateMeta('og:description', `${type.subtitle} - ${type.description.substring(0, 80)}...`);
+  updateMeta('og:image', previewImage);
+  updateMeta('twitter:image', previewImage);
   updateMeta('og:url', window.location.href);
 
   const screen = $('screenResult');
@@ -1445,8 +1900,6 @@ function renderResult(type, fromUrl) {
 
   const shareUrl = `${window.location.origin}${window.location.pathname}?result=${type.id}`;
   const baseUrl = `${window.location.origin}${window.location.pathname}`;
-
-  const pinUrl = (q) => `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(q)}`;
 
   screen.innerHTML = `
     <div class="result-section">
@@ -1485,22 +1938,9 @@ function renderResult(type, fromUrl) {
     </div>
 
     <div class="result-section">
-      <div class="section-title">🔍 내 추구미 더 탐색하기</div>
+      <div class="section-title">🖼️ 바로 보는 레퍼런스 갤러리</div>
       <div class="card">
-        <div class="pin-buttons">
-          <a class="pin-btn" href="${pinUrl(type.pinterest_queries.makeup)}" target="_blank" rel="noopener">
-            <span class="pin-btn-left"><span class="pin-btn-icon">💄</span><span>메이크업 레퍼런스 보기</span></span>
-            <span class="pin-btn-arrow">→</span>
-          </a>
-          <a class="pin-btn" href="${pinUrl(type.pinterest_queries.fashion)}" target="_blank" rel="noopener">
-            <span class="pin-btn-left"><span class="pin-btn-icon">👗</span><span>패션 레퍼런스 보기</span></span>
-            <span class="pin-btn-arrow">→</span>
-          </a>
-          <a class="pin-btn" href="${pinUrl(type.pinterest_queries.celeb)}" target="_blank" rel="noopener">
-            <span class="pin-btn-left"><span class="pin-btn-icon">⭐</span><span>닮은 셀럽 스타일 보기</span></span>
-            <span class="pin-btn-arrow">→</span>
-          </a>
-        </div>
+        ${renderReferenceGallery(type)}
       </div>
     </div>
 
@@ -1614,7 +2054,7 @@ function shareKakao(typeId) {
         content: {
           title: `나의 추구미는 [${type.name}]! ${type.emoji}`,
           description: type.subtitle,
-          imageUrl: 'https://images.unsplash.com/photo-1522335789203-aaa8a73c1e02?w=800',
+          imageUrl: getPreviewImage(typeId),
           link: { mobileWebUrl: shareUrl, webUrl: shareUrl }
         },
         buttons: [{

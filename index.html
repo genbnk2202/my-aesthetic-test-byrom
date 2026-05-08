@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>추구미 테스트 - 나의 이상적 감성은?</title>
+
+<!-- SEO & Social Meta Tags -->
+<meta name="description" content="15개 질문으로 알아보는 나만의 추구미 유형! 클린걸부터 걸크러시까지, 당신의 미적 취향을 분석해드려요.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="추구미 테스트 - 나의 이상적 감성은?">
+<meta property="og:description" content="15개 질문으로 알아보는 나만의 추구미 유형! 10가지 유형 중 나는 어디에 속할까?">
+<meta property="og:image" content="https://images.unsplash.com/photo-1522335789203-aaa8a73c1e02?w=1200&q=80">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="추구미 테스트 - 나의 이상적 감성은?">
+<meta name="twitter:description" content="15개 질문으로 알아보는 나만의 추구미 유형!">
+
+<!-- Pretendard Font -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<!-- html2canvas for result image saving -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+:root {
+  --bg-gradient: linear-gradient(135deg, #FFF8F0 0%, #FCE7F3 50%, #F0E6FF 100%);
+  --text-primary: #1A1A2E;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --accent: #A855F7;
+  --accent-soft: #C084FC;
+  --accent-deep: #7C3AED;
+  --white: #FFFFFF;
+  --button-radius: 16px;
+  --card-radius: 24px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(168, 85, 247, 0.15);
+  --font-main: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  font-family: var(--font-main);
+  color: var(--text-primary);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  line-height: 1.5;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ========== Layout ========== */
+.app {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100vh;
+  position: relative;
+  padding: 24px 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .container { padding: 40px 24px; }
+}
+
+/* ========== Progress Bar ========== */
+.progress-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 12px 0 16px;
+  background: linear-gradient(to bottom, rgba(255, 248, 240, 0.95), rgba(255, 248, 240, 0.7) 80%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+}
+.progress-wrap.active { display: block; }
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(168, 85, 247, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-soft), var(--accent-deep));
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+
+/* ========== Screens ========== */
+.screen {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease;
+}
+.screen.active { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.96); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ========== Start Screen ========== */
+.start {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 8px;
+  gap: 24px;
+}
+
+.start-emoji {
+  font-size: 64px;
+  margin-bottom: 8px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.start-title {
+  font-size: clamp(28px, 7vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.start-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.start-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--card-radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 420px;
+}
+
+.start-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+
+.start-stat {
+  flex: 1;
+  text-align: center;
+}
+
+.start-stat-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: -0.02em;
+}
+
+.start-stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.start-divider {
+  width: 1px;
+  background: rgba(168, 85, 247, 0.2);
+}
+
+/* ========== Buttons ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 28px;
+  border-radius: var(--button-radius);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: var(--transition);
+  width: 100%;
+  max-width: 360px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-deep) 100%);
+  color: white;
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text-primary);
+  border: 1.5px solid rgba(168, 85, 247, 0.2);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: rgba(168, 85, 247, 0.08);
+  color: var(--accent-deep);
+  font-size: 14px;
+  padding: 10px 16px;
+  width: auto;
+  border-radius: 999px;
+}
+
+.btn-ghost:hover {
+  background: rgba(168, 85, 247, 0.15);
+}
+
+/* ========== Question Screen ========== */
+.question {
+  padding-top: 8px;
+  gap: 20px;
+}
+
+.question-num {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.question-text {
+  font-size: clamp(20px, 5vw, 24px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 18px;
+  background: white;
+  border: 1.5px solid rgba(168, 85, 247, 0.12);
+  border-radius: var(--button-radius);
+  font-size: 15px;
+  text-align: left;
+  color: var(--text-primary);
+  transition: var(--transition);
+  width: 100%;
+  font-weight: 500;
+  line-height: 1.5;
+  box-shadow: var(--shadow-sm);
+  animation: slideUp 0.4s ease backwards;
+}
+
+.option:nth-child(1) { animation-delay: 0.05s; }
+.option:nth-child(2) { animation-delay: 0.12s; }
+.option:nth-child(3) { animation-delay: 0.19s; }
+.option:nth-child(4) { animation-delay: 0.26s; }
+
+.option:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.12);
+}
+
+.option.selected {
+  background: linear-gradient(135deg, #FAF5FF 0%, #FCE7F3 100%);
+  border-color: var(--accent);
+  transform: scale(0.98);
+}
+
+.option-label {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.1);
+  color: var(--accent-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.option.selected .option-label {
+  background: var(--accent);
+  color: white;
+}
+
+.back-btn {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+/* ========== Loading Screen ========== */
+.loading {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  padding: 60px 20px;
+}
+
+.loading-orb {
+  width: 110px;
+  height: 110px;
+  position: relative;
+}
+
+.loading-orb::before,
+.loading-orb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent-deep));
+  opacity: 0.7;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.loading-orb::after {
+  animation-delay: 1s;
+}
+
+.loading-orb-core {
+  position: absolute;
+  inset: 25px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FCE7F3, #F0E6FF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 0.2; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.loading-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  min-height: 22px;
+  transition: opacity 0.3s;
+}
+
+/* ========== Result Screen ========== */
+.result {
+  gap: 0;
+  padding-top: 8px;
+}
+
+.result-section {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s ease forwards;
+}
+
+.result-section:nth-child(1) { animation-delay: 0.1s; }
+.result-section:nth-child(2) { animation-delay: 0.25s; }
+.result-section:nth-child(3) { animation-delay: 0.4s; }
+.result-section:nth-child(4) { animation-delay: 0.55s; }
+.result-section:nth-child(5) { animation-delay: 0.7s; }
+.result-section:nth-child(6) { animation-delay: 0.85s; }
+.result-section:nth-child(7) { animation-delay: 1s; }
+
+.result-hero {
+  background: white;
+  border-radius: var(--card-radius);
+  padding: 36px 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.result-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--type-color, var(--accent));
+}
+
+.result-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  background: rgba(168, 85, 247, 0.1);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.result-emoji {
+  font-size: 64px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.result-name {
+  font-size: clamp(28px, 7vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.result-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.result-color-bar {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.result-color-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card {
+  background: white;
+  border-radius: var(--card-radius);
+  padding: 24px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card-description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.style-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .style-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.style-item {
+  background: rgba(168, 85, 247, 0.05);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.style-item-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-deep);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.style-item-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.pin-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pin-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #FFF, #FAF5FF);
+  border: 1.5px solid rgba(168, 85, 247, 0.15);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: var(--transition);
+  width: 100%;
+}
+
+.pin-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.12);
+}
+
+.pin-btn-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pin-btn-icon {
+  font-size: 22px;
+}
+
+.pin-btn-arrow {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.celeb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.celeb-card {
+  background: rgba(168, 85, 247, 0.05);
+  border-radius: 14px;
+  padding: 16px 14px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.celeb-card:hover {
+  background: rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+.celeb-flag {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.celeb-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.celeb-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.celeb-insta {
+  font-size: 12px;
+  color: var(--accent-deep);
+  font-weight: 500;
+}
+
+/* Share Buttons */
+.share-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.share-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 14px;
+  background: white;
+  border: 1.5px solid rgba(168, 85, 247, 0.12);
+  transition: var(--transition);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+}
+
+.share-btn-icon {
+  font-size: 22px;
+}
+
+.share-btn.kakao { background: #FEE500; border-color: #FEE500; }
+.share-btn.twitter { background: #000; color: white; border-color: #000; }
+
+.insta-tip {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: rgba(236, 72, 153, 0.06);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.save-img-btn {
+  width: 100%;
+  padding: 13px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 12px;
+  background: white;
+  border: 1.5px solid rgba(168, 85, 247, 0.2);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.save-img-btn:hover {
+  background: rgba(168, 85, 247, 0.05);
+  border-color: var(--accent);
+}
+
+.restart-area {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.restart-area .btn {
+  margin: 0 auto;
+}
+
+.footer-credit {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 24px;
+  padding-bottom: 8px;
+}
+
+/* ========== Toast ========== */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(26, 26, 46, 0.95);
+  color: white;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 100;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ========== Result Card (for screenshot) ========== */
+.snap-card {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 480px;
+  background: linear-gradient(135deg, #FFF8F0 0%, #FCE7F3 50%, #F0E6FF 100%);
+  padding: 40px 30px;
+  font-family: var(--font-main);
+}
+
+.snap-card-inner {
+  background: white;
+  border-radius: 28px;
+  padding: 40px 28px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="container">
+
+    <!-- Progress Bar -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-top">
+        <span id="progressLabel">1 / 15</span>
+        <span id="progressPercent">7%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div class="screen start active" id="screenStart">
+      <div class="start-emoji">✨</div>
+      <h1 class="start-title">나의 추구미는<br/>무엇일까?</h1>
+      <p class="start-subtitle">15개의 질문으로 알아보는<br/>나만의 미적 감성 유형 테스트</p>
+
+      <div class="start-card">
+        <div class="start-stats">
+          <div class="start-stat">
+            <div class="start-stat-num">15</div>
+            <div class="start-stat-label">질문 개수</div>
+          </div>
+          <div class="start-divider"></div>
+          <div class="start-stat">
+            <div class="start-stat-num">10</div>
+            <div class="start-stat-label">추구미 유형</div>
+          </div>
+          <div class="start-divider"></div>
+          <div class="start-stat">
+            <div class="start-stat-num">3분</div>
+            <div class="start-stat-label">소요 시간</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="startTest()">
+        <span>시작하기</span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <!-- Question Screen -->
+    <div class="screen question" id="screenQuestion">
+      <div class="question-num" id="questionCategory">QUESTION 01</div>
+      <h2 class="question-text" id="questionText"></h2>
+      <div class="options" id="optionsContainer"></div>
+      <button class="btn-ghost back-btn" id="backBtn" onclick="goBack()">← 이전 질문</button>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="screen loading" id="screenLoading">
+      <div class="loading-orb">
+        <div class="loading-orb-core">✨</div>
+      </div>
+      <div>
+        <div class="loading-title">너의 추구미를 분석 중...</div>
+        <p class="loading-text" id="loadingText">데이터를 모으고 있어요</p>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen result" id="screenResult"></div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Hidden snap card for screenshot -->
+<div class="snap-card" id="snapCard"></div>
+
+<script>
+/* ============================================ */
+/* DATA                                          */
+/* ============================================ */
+
+const TYPES = [
+  {
+    id: "clean_girl",
+    name: "클린걸",
+    emoji: "🫧",
+    subtitle: "맑고 깨끗한 글로시 뷰티",
+    description: "넌 꾸민 듯 안 꾸민 듯 자연스러운 아름다움을 추구해. 글로시한 피부, 슬릭백 헤어, 뉴트럴 톤의 미니멀한 룩이 너의 시그니처! 건강한 루틴과 정돈된 라이프스타일이 네 매력의 비결이야.",
+    makeup: "투명 글로시 베이스 + 브라운 음영 + MLBB 립",
+    fashion: "베이지 린넨 셋업 + 골드 미니멀 주얼리 + 슬링백",
+    color: "#F5F0EB",
+    palette: ["#F5F0EB", "#E8DDD0", "#C9B8A8", "#FFFFFF"],
+    celeb_kr: { name: "수지", instagram: "skuukzky" },
+    celeb_global: { name: "Hailey Bieber", instagram: "haileybieber" },
+    pinterest_queries: {
+      makeup: "clean girl makeup glowy skin dewy",
+      fashion: "clean girl outfit neutral minimal aesthetic",
+      celeb: "Hailey Bieber clean girl aesthetic"
+    }
+  },
+  {
+    id: "lovely_romantic",
+    name: "러블리 로맨틱",
+    emoji: "🎀",
+    subtitle: "사랑스러운 핑크빛 여신",
+    description: "넌 세상을 핑크빛으로 물들이는 로맨티스트! 리본, 레이스, 플로럴 패턴을 사랑하고, 부드러운 컬과 장밋빛 볼터치가 트레이드마크. 어디서든 사랑스러운 분위기를 풍기는 게 네 매력이야.",
+    makeup: "핑크 블러셔 가득 + 글리터 아이 + 코랄 립",
+    fashion: "플로럴 원피스 + 리본 헤어밴드 + 메리제인 슈즈",
+    color: "#FFD6E0",
+    palette: ["#FFD6E0", "#FFB6C1", "#FF9FBF", "#FFF0F5"],
+    celeb_kr: { name: "아이유", instagram: "dlwlrma" },
+    celeb_global: { name: "Sydney Sweeney", instagram: "sydneysweeney" },
+    pinterest_queries: {
+      makeup: "romantic pink makeup soft blush korean",
+      fashion: "coquette fashion floral dress ribbon",
+      celeb: "Sydney Sweeney romantic style"
+    }
+  },
+  {
+    id: "chic_modern",
+    name: "시크 모던",
+    emoji: "🖤",
+    subtitle: "도시의 쿨한 무드메이커",
+    description: "넌 군더더기 없는 쿨함 그 자체! 올블랙 코디, 날카로운 실루엣, 미니멀한 악세사리로 '간지'를 완성해. 말 없이도 포스가 느껴지는 도시적 세련미가 네 DNA야.",
+    makeup: "매트 피부 + 샤프한 아이라인 + 뉴트럴 누드 립",
+    fashion: "올블랙 테일러드 셋업 + 실버 체인 + 앵클부츠",
+    color: "#2C2C2C",
+    palette: ["#2C2C2C", "#5A5A5A", "#8E8E8E", "#FFFFFF"],
+    celeb_kr: { name: "한소희", instagram: "xeesoxee" },
+    celeb_global: { name: "Bella Hadid", instagram: "bellahadid" },
+    pinterest_queries: {
+      makeup: "chic minimal makeup sharp liner matte",
+      fashion: "all black outfit street style minimal chic",
+      celeb: "Bella Hadid street style all black"
+    }
+  },
+  {
+    id: "vintage_retro",
+    name: "빈티지 레트로",
+    emoji: "📷",
+    subtitle: "필름 감성 시간여행자",
+    description: "넌 과거의 아름다움을 현재에 되살리는 감성 큐레이터! 코듀로이, 빈티지 데님, 레이어드의 달인이야. 필름 카메라로 찍은 듯한 무드가 네 일상 어디에나 스며들어 있어.",
+    makeup: "오렌지 브라운 톤 + 내추럴 눈썹 + 브릭 립",
+    fashion: "코듀로이 자켓 + 플레어 데님 + 빈티지 스카프",
+    color: "#C4956A",
+    palette: ["#C4956A", "#A6794D", "#7A5A38", "#E8D4B8"],
+    celeb_kr: { name: "태연", instagram: "taeyeon_ss" },
+    celeb_global: { name: "Alexa Chung", instagram: "alexachung" },
+    pinterest_queries: {
+      makeup: "vintage retro makeup 70s brown orange",
+      fashion: "vintage outfit corduroy layered aesthetic",
+      celeb: "Alexa Chung vintage outfit style"
+    }
+  },
+  {
+    id: "sporty_healthy",
+    name: "스포티 헬시",
+    emoji: "💪",
+    subtitle: "에너지 넘치는 건강미 아이콘",
+    description: "넌 움직이는 게 곧 라이프스타일인 활력의 아이콘! 레깅스에 크롭탑, 깨끗한 민낯에 묶은 머리가 제일 잘 어울려. 운동 후 빛나는 피부가 최고의 메이크업이라고 믿는 타입!",
+    makeup: "선스크린 베이스 + 워터프루프 마스카라 + 틴트 한 겹",
+    fashion: "매칭 레깅스 셋업 + 클린 스니커즈 + 볼캡",
+    color: "#A8E6CF",
+    palette: ["#A8E6CF", "#88D8B0", "#5DBE92", "#E0F5EC"],
+    celeb_kr: { name: "장윤주", instagram: "yoonjoojang" },
+    celeb_global: { name: "Pamela Reif", instagram: "pamela_rf" },
+    pinterest_queries: {
+      makeup: "sporty no makeup look healthy skin glow",
+      fashion: "athleisure outfit matching set aesthetic",
+      celeb: "Pamela Reif sporty outfit gym style"
+    }
+  },
+  {
+    id: "dark_academia",
+    name: "다크 아카데미아",
+    emoji: "📚",
+    subtitle: "지적인 고전미 탐구자",
+    description: "넌 도서관과 고풍스러운 카페가 어울리는 문학 감성의 소유자! 트위드 재킷, 터틀넥, 옥스포드 슈즈로 지적인 매력을 뿜어내. 깊이 있는 대화와 가을 향이 너의 키워드야.",
+    makeup: "매트 피부 + 짙은 브라운 음영 + 딥 로즈 립",
+    fashion: "트위드 블레이저 + 체크 스커트 + 로퍼 + 서류가방",
+    color: "#5C4033",
+    palette: ["#5C4033", "#3D2820", "#8B6F5A", "#D4C5B0"],
+    celeb_kr: { name: "김태리", instagram: "kimtaeriofficial" },
+    celeb_global: { name: "Emma Watson", instagram: "emmawatson" },
+    pinterest_queries: {
+      makeup: "dark academia makeup matte brown moody",
+      fashion: "dark academia outfit tweed plaid skirt",
+      celeb: "Emma Watson dark academia style outfit"
+    }
+  },
+  {
+    id: "balletcore",
+    name: "발레코어",
+    emoji: "🩰",
+    subtitle: "우아한 움직임의 예술가",
+    description: "넌 일상을 무대처럼 우아하게 만드는 섬세한 감성의 소유자! 튤 스커트, 랩가디건, 새틴 리본이 너의 상징이야. 부드럽지만 강인한, 발레리나 같은 아름다움이 네 진짜 모습!",
+    makeup: "핑크빛 투명 베이스 + 섬세한 속눈썹 + 로즈 립밤",
+    fashion: "랩 니트 + 튤 미디스커트 + 새틴 플랫슈즈 + 번헤어",
+    color: "#F8E8EE",
+    palette: ["#F8E8EE", "#F0D5DD", "#E5BCC7", "#FFF5F8"],
+    celeb_kr: { name: "김유정", instagram: "you_r_love" },
+    celeb_global: { name: "Natalie Portman", instagram: "natalieportman" },
+    pinterest_queries: {
+      makeup: "balletcore makeup soft pink ethereal delicate",
+      fashion: "balletcore outfit tulle wrap cardigan aesthetic",
+      celeb: "Natalie Portman Black Swan ballet style"
+    }
+  },
+  {
+    id: "girl_crush",
+    name: "걸크러시",
+    emoji: "🔥",
+    subtitle: "무대를 지배하는 카리스마 퀸",
+    description: "넌 등장만으로 시선을 사로잡는 강렬한 카리스마의 소유자! 레더 재킷, 스모키 아이, 볼드 립으로 무장한 네 앞에선 누구나 팬이 될 수밖에 없어. 자신감이 곧 네 최고의 무기!",
+    makeup: "스모키 아이 + 킬러 아이라인 + 레드/딥 플럼 립",
+    fashion: "레더 재킷 + 킬힐 부츠 + 체인 벨트 + 선글라스",
+    color: "#8B0000",
+    palette: ["#8B0000", "#5A0000", "#B22222", "#1A1A1A"],
+    celeb_kr: { name: "제니", instagram: "jennierubyjane" },
+    celeb_global: { name: "Dua Lipa", instagram: "dualipa" },
+    pinterest_queries: {
+      makeup: "girl crush smokey eye bold lip editorial",
+      fashion: "girl crush outfit leather jacket boots chain",
+      celeb: "Dua Lipa concert outfit fierce style"
+    }
+  },
+  {
+    id: "cozy_natural",
+    name: "코지 내추럴",
+    emoji: "🍂",
+    subtitle: "포근한 가을 오후의 감성",
+    description: "넌 니트 한 장으로 세상에서 가장 편안한 무드를 만드는 힐링 요정! 우드톤 인테리어, 따뜻한 차 한 잔, 부드러운 질감을 사랑해. 네 옆에 있으면 누구나 마음이 따뜻해져.",
+    makeup: "누드 톤 전체 + 피부결 살린 베이스 + 투명 립밤",
+    fashion: "오버사이즈 니트 + 코튼 와이드팬츠 + 뮬 슬리퍼",
+    color: "#D4A373",
+    palette: ["#D4A373", "#B88A5A", "#8C6A42", "#F0DFC8"],
+    celeb_kr: { name: "공효진", instagram: "rovvxhyo" },
+    celeb_global: { name: "Dakota Johnson", instagram: "dakotajohnson" },
+    pinterest_queries: {
+      makeup: "natural no makeup makeup soft nude cozy",
+      fashion: "cozy outfit oversized knit neutral earth tone",
+      celeb: "Dakota Johnson casual cozy natural style"
+    }
+  },
+  {
+    id: "y2k_pop",
+    name: "Y2K 팝",
+    emoji: "💜",
+    subtitle: "2000년대 감성 팝스타",
+    description: "넌 과감한 색감과 유니크한 아이템으로 어디서든 주인공이 되는 트렌드세터! 글리터, 크롭탑, 비비드 컬러를 자유자재로 다루는 네 패션은 그 자체로 하나의 퍼포먼스야!",
+    makeup: "글리터 아이 + 컬러 아이라인 + 글로시 과즙 립",
+    fashion: "크롭 카디건 + 로라이즈 데님 + 플랫폼 슈즈 + 비즈 악세",
+    color: "#BF40BF",
+    palette: ["#BF40BF", "#8E2A8E", "#E966E9", "#FFE5FF"],
+    celeb_kr: { name: "현아", instagram: "hyunah_aa" },
+    celeb_global: { name: "Doja Cat", instagram: "dojacat" },
+    pinterest_queries: {
+      makeup: "y2k makeup glitter colorful liner glossy",
+      fashion: "y2k fashion crop top low rise platform",
+      celeb: "Doja Cat y2k pop style outfit colorful"
+    }
+  }
+];
+
+const QUESTIONS = [
+  {
+    id: 1,
+    category: "lifestyle",
+    text: "토요일 아침, 눈 떴는데 약속 없는 날! 제일 먼저 뭐 해?",
+    options: [
+      { label: "A", text: "스킨케어 루틴 풀코스 하고 깔끔하게 정리정돈", scores: { clean_girl: 2, chic_modern: 1 } },
+      { label: "B", text: "이불 속에서 따뜻한 차 마시면서 책이나 영화", scores: { cozy_natural: 2, dark_academia: 1 } },
+      { label: "C", text: "아침 러닝 or 홈트 하고 건강한 브런치 만들기", scores: { sporty_healthy: 2, clean_girl: 1 } },
+      { label: "D", text: "어제 저장해둔 핀터레스트 무드보드 정리", scores: { vintage_retro: 2, balletcore: 1 } }
+    ]
+  },
+  {
+    id: 2,
+    category: "lifestyle",
+    text: "카페 도착! 자리 잡고 인스타 한 장 찍는다면?",
+    options: [
+      { label: "A", text: "음료랑 손만 나오는 미니멀한 구도", scores: { clean_girl: 2, chic_modern: 1 } },
+      { label: "B", text: "꽃이랑 디저트를 예쁘게 배치한 테이블 샷", scores: { lovely_romantic: 2, balletcore: 1 } },
+      { label: "C", text: "창밖 빛 들어오는 무드 있는 실루엣 셀카", scores: { dark_academia: 2, vintage_retro: 1 } },
+      { label: "D", text: "볼캡 쓰고 텀블러 들고 있는 자연스러운 모습", scores: { sporty_healthy: 2, cozy_natural: 1 } }
+    ]
+  },
+  {
+    id: 3,
+    category: "lifestyle",
+    text: "이사했다! 방 분위기 어떻게 꾸밀 거야?",
+    options: [
+      { label: "A", text: "화이트 + 우드톤, 물건은 최소한으로", scores: { clean_girl: 2, cozy_natural: 1 } },
+      { label: "B", text: "빈티지 조명, 필름 사진 벽에 잔뜩, LP 플레이어", scores: { vintage_retro: 2, dark_academia: 1 } },
+      { label: "C", text: "네온사인, 포토카드, 컬러풀한 LED 조명", scores: { y2k_pop: 2, girl_crush: 1 } },
+      { label: "D", text: "드라이플라워, 캔들, 레이스 커튼", scores: { lovely_romantic: 2, balletcore: 1 } }
+    ]
+  },
+  {
+    id: 4,
+    category: "shopping",
+    text: "쇼핑몰 도착! 무의식적으로 먼저 가는 곳은?",
+    options: [
+      { label: "A", text: "세컨핸드/빈티지 매장", scores: { vintage_retro: 2, dark_academia: 1 } },
+      { label: "B", text: "스포츠/애슬레저 브랜드", scores: { sporty_healthy: 2, girl_crush: 1 } },
+      { label: "C", text: "럭셔리 브랜드 구경이라도", scores: { chic_modern: 2, girl_crush: 1 } },
+      { label: "D", text: "악세사리/리본/비즈 소품샵", scores: { lovely_romantic: 2, y2k_pop: 1 } }
+    ]
+  },
+  {
+    id: 5,
+    category: "shopping",
+    text: "옷 고를 때 네가 제일 신경 쓰는 포인트는?",
+    options: [
+      { label: "A", text: "핏과 실루엣이 깔끔한지", scores: { chic_modern: 2, clean_girl: 1 } },
+      { label: "B", text: "소재의 촉감과 편안함", scores: { cozy_natural: 2, balletcore: 1 } },
+      { label: "C", text: "남들과 안 겹치는 유니크함", scores: { y2k_pop: 2, vintage_retro: 1 } },
+      { label: "D", text: "이 옷 입으면 얼마나 강해 보이는지", scores: { girl_crush: 2, sporty_healthy: 1 } }
+    ]
+  },
+  {
+    id: 6,
+    category: "shopping",
+    text: "월급 들어왔다! 나를 위한 선물 하나 산다면?",
+    options: [
+      { label: "A", text: "고급 향수 or 디퓨저", scores: { chic_modern: 2, dark_academia: 1 } },
+      { label: "B", text: "새 러닝화 or 요가 매트", scores: { sporty_healthy: 2, clean_girl: 1 } },
+      { label: "C", text: "예쁜 리본 헤어핀 세트 or 진주 귀걸이", scores: { balletcore: 2, lovely_romantic: 1 } },
+      { label: "D", text: "펑키한 디자인의 폰케이스 or 양말", scores: { y2k_pop: 2, vintage_retro: 1 } }
+    ]
+  },
+  {
+    id: 7,
+    category: "social",
+    text: "소개팅 나간다! 오늘의 필살기 포인트는?",
+    options: [
+      { label: "A", text: "완벽한 피부 표현 + 은은한 향기", scores: { clean_girl: 2, balletcore: 1 } },
+      { label: "B", text: "레드 립 + 자신감 넘치는 눈빛", scores: { girl_crush: 2, chic_modern: 1 } },
+      { label: "C", text: "볼터치 가득 + 사랑스러운 미소", scores: { lovely_romantic: 2, cozy_natural: 1 } },
+      { label: "D", text: "남들과 다른 포인트 컬러 아이템 하나", scores: { y2k_pop: 2, vintage_retro: 1 } }
+    ]
+  },
+  {
+    id: 8,
+    category: "social",
+    text: "단체 사진 찍을 때 네 포즈는?",
+    options: [
+      { label: "A", text: "살짝 턱 당기고 미소, 정자세 정석 포즈", scores: { clean_girl: 2, lovely_romantic: 1 } },
+      { label: "B", text: "고개 살짝 돌리고 무표정 (시크하게)", scores: { chic_modern: 2, girl_crush: 1 } },
+      { label: "C", text: "피스 or 볼하트 같은 귀여운 포즈", scores: { y2k_pop: 2, lovely_romantic: 1 } },
+      { label: "D", text: "자연스럽게 웃으면서 옆 사람한테 기대기", scores: { cozy_natural: 2, sporty_healthy: 1 } }
+    ]
+  },
+  {
+    id: 9,
+    category: "social",
+    text: "친구들이 너를 한마디로 표현한다면?",
+    options: [
+      { label: "A", text: "\"쟤 옆에 있으면 편해\"", scores: { cozy_natural: 2, sporty_healthy: 1 } },
+      { label: "B", text: "\"걔 뭔가 있어 보여\"", scores: { dark_academia: 2, chic_modern: 1 } },
+      { label: "C", text: "\"걔 진짜 예뻐...인형 같아\"", scores: { balletcore: 2, lovely_romantic: 1 } },
+      { label: "D", text: "\"걔 앞에서 주눅 들어ㅋㅋ\"", scores: { girl_crush: 2, chic_modern: 1 } }
+    ]
+  },
+  {
+    id: 10,
+    category: "taste",
+    text: "플레이리스트에 제일 많은 장르는?",
+    options: [
+      { label: "A", text: "잔잔한 어쿠스틱 / 인디팝", scores: { cozy_natural: 2, vintage_retro: 1 } },
+      { label: "B", text: "클래식 or 재즈", scores: { dark_academia: 2, balletcore: 1 } },
+      { label: "C", text: "강렬한 팝 / 힙합 / EDM", scores: { girl_crush: 2, y2k_pop: 1 } },
+      { label: "D", text: "K-POP 아이돌 노래", scores: { lovely_romantic: 2, y2k_pop: 1 } }
+    ]
+  },
+  {
+    id: 11,
+    category: "taste",
+    text: "넷플릭스 뭐 볼지 고를 때, 손이 가는 장르는?",
+    options: [
+      { label: "A", text: "영국 시대극 / 문학 원작 드라마", scores: { dark_academia: 2, vintage_retro: 1 } },
+      { label: "B", text: "로맨스 / 로맨틱 코미디", scores: { lovely_romantic: 2, balletcore: 1 } },
+      { label: "C", text: "범죄 스릴러 / 액션", scores: { girl_crush: 2, chic_modern: 1 } },
+      { label: "D", text: "힐링 다큐 / 자연 영상", scores: { cozy_natural: 2, sporty_healthy: 1 } }
+    ]
+  },
+  {
+    id: 12,
+    category: "taste",
+    text: "여행지 고른다! 어디로?",
+    options: [
+      { label: "A", text: "파리 - 미술관, 카페, 골목 산책", scores: { dark_academia: 2, vintage_retro: 1 } },
+      { label: "B", text: "발리 - 서핑, 요가, 선셋 뷰", scores: { sporty_healthy: 2, cozy_natural: 1 } },
+      { label: "C", text: "도쿄 - 하라주쿠, 빈티지샵, 팝업 투어", scores: { y2k_pop: 2, vintage_retro: 1 } },
+      { label: "D", text: "밀라노 - 패션위크, 쇼룸, 고급 레스토랑", scores: { chic_modern: 2, girl_crush: 1 } }
+    ]
+  },
+  {
+    id: 13,
+    category: "identity",
+    text: "거울 속 내가 제일 예뻐 보이는 순간은?",
+    options: [
+      { label: "A", text: "세수 직후 물광 피부가 빛날 때", scores: { clean_girl: 2, sporty_healthy: 1 } },
+      { label: "B", text: "풀 메이크업 완성하고 마지막 립 바를 때", scores: { girl_crush: 2, y2k_pop: 1 } },
+      { label: "C", text: "머리 예쁘게 묶고 귀걸이 했을 때", scores: { balletcore: 2, lovely_romantic: 1 } },
+      { label: "D", text: "좋아하는 오버사이즈 옷 입고 편할 때", scores: { cozy_natural: 2, vintage_retro: 1 } }
+    ]
+  },
+  {
+    id: 14,
+    category: "identity",
+    text: "꿈속에서 내가 된 모습, 뭐가 제일 설레?",
+    options: [
+      { label: "A", text: "무대 위에서 조명 받으며 공연하는 나", scores: { girl_crush: 2, y2k_pop: 1 } },
+      { label: "B", text: "유럽 고성 도서관에서 책 읽는 나", scores: { dark_academia: 2, balletcore: 1 } },
+      { label: "C", text: "아침 요가 하고 오가닉 주스 만드는 나", scores: { sporty_healthy: 2, clean_girl: 1 } },
+      { label: "D", text: "꽃밭에서 드레스 입고 피크닉하는 나", scores: { lovely_romantic: 2, cozy_natural: 1 } }
+    ]
+  },
+  {
+    id: 15,
+    category: "identity",
+    text: "사람들이 너 보고 '와 저 사람 진짜...' 할 때, 어떤 반응이 제일 좋아?",
+    options: [
+      { label: "A", text: "\"피부 진짜 좋다... 관리 어떻게 해?\"", scores: { clean_girl: 2, sporty_healthy: 1 } },
+      { label: "B", text: "\"뭔가 분위기 있다... 범접 불가\"", scores: { chic_modern: 2, dark_academia: 1 } },
+      { label: "C", text: "\"아 너무 예쁘다 인형 같아\"", scores: { balletcore: 2, lovely_romantic: 1 } },
+      { label: "D", text: "\"와 개성 있다 너만의 스타일\"", scores: { y2k_pop: 2, vintage_retro: 1 } }
+    ]
+  }
+];
+
+const LOADING_TEXTS = [
+  "데이터를 모으고 있어요 ✨",
+  "너의 취향을 분석 중이에요 🎨",
+  "10가지 유형과 매칭하고 있어요 💫",
+  "완성! 결과를 가져올게요 🎀"
+];
+
+/* ============================================ */
+/* STATE                                         */
+/* ============================================ */
+
+let currentQuestion = 0;
+let answers = [];
+let scores = {};
+
+TYPES.forEach(t => scores[t.id] = 0);
+
+/* ============================================ */
+/* DOM HELPERS                                   */
+/* ============================================ */
+
+const $ = (id) => document.getElementById(id);
+
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(`screen${name}`).classList.add('active');
+
+  const showProgress = (name === 'Question');
+  $('progressWrap').classList.toggle('active', showProgress);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showToast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ============================================ */
+/* INIT (URL parameter check)                    */
+/* ============================================ */
+
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const resultId = params.get('result');
+
+  if (resultId) {
+    const type = TYPES.find(t => t.id === resultId);
+    if (type) {
+      // Direct result view
+      renderResult(type, true);
+      return;
+    }
+  }
+
+  // Default - start screen
+  showScreen('Start');
+});
+
+/* ============================================ */
+/* TEST FLOW                                     */
+/* ============================================ */
+
+function startTest() {
+  currentQuestion = 0;
+  answers = [];
+  scores = {};
+  TYPES.forEach(t => scores[t.id] = 0);
+
+  showScreen('Question');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQuestion];
+  const total = QUESTIONS.length;
+  const num = currentQuestion + 1;
+  const pct = Math.round((num / total) * 100);
+
+  $('progressLabel').textContent = `${num} / ${total}`;
+  $('progressPercent').textContent = `${pct}%`;
+  $('progressFill').style.width = `${pct}%`;
+
+  $('questionCategory').textContent = `QUESTION ${String(num).padStart(2,'0')}`;
+
+  // Animate text change
+  const qt = $('questionText');
+  qt.style.opacity = '0';
+  setTimeout(() => {
+    qt.textContent = q.text;
+    qt.style.transition = 'opacity 0.3s';
+    qt.style.opacity = '1';
+  }, 100);
+
+  // Render options
+  const container = $('optionsContainer');
+  container.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.style.animationDelay = `${0.05 + idx * 0.07}s`;
+    btn.innerHTML = `
+      <span class="option-label">${opt.label}</span>
+      <span>${opt.text}</span>
+    `;
+    btn.onclick = () => selectOption(idx, btn);
+    container.appendChild(btn);
+  });
+
+  // Back button visibility
+  $('backBtn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+}
+
+function selectOption(optionIdx, btn) {
+  // Visual feedback
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  const q = QUESTIONS[currentQuestion];
+  const opt = q.options[optionIdx];
+
+  // Save / replace answer
+  answers[currentQuestion] = optionIdx;
+
+  // Move on after small delay
+  setTimeout(() => {
+    if (currentQuestion < QUESTIONS.length - 1) {
+      currentQuestion++;
+      renderQuestion();
+    } else {
+      // Calculate scores from all answers
+      calculateAndShowResult();
+    }
+  }, 320);
+}
+
+function goBack() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+  }
+}
+
+function calculateAndShowResult() {
+  // Reset scores then sum
+  TYPES.forEach(t => scores[t.id] = 0);
+  answers.forEach((optIdx, qIdx) => {
+    const opt = QUESTIONS[qIdx].options[optIdx];
+    Object.entries(opt.scores).forEach(([typeId, val]) => {
+      scores[typeId] += val;
+    });
+  });
+
+  // Find top type
+  let maxScore = -1;
+  let topType = TYPES[0];
+  TYPES.forEach(t => {
+    if (scores[t.id] > maxScore) {
+      maxScore = scores[t.id];
+      topType = t;
+    }
+  });
+
+  // Show loading then result
+  showScreen('Loading');
+  let textIdx = 0;
+  $('loadingText').textContent = LOADING_TEXTS[0];
+  const interval = setInterval(() => {
+    textIdx++;
+    if (textIdx < LOADING_TEXTS.length) {
+      const lt = $('loadingText');
+      lt.style.opacity = '0';
+      setTimeout(() => {
+        lt.textContent = LOADING_TEXTS[textIdx];
+        lt.style.opacity = '1';
+      }, 200);
+    }
+  }, 750);
+
+  setTimeout(() => {
+    clearInterval(interval);
+    // Update URL with result
+    const newUrl = `${window.location.pathname}?result=${topType.id}`;
+    history.replaceState({}, '', newUrl);
+    renderResult(topType, false);
+  }, 3000);
+}
+
+/* ============================================ */
+/* RESULT                                        */
+/* ============================================ */
+
+function renderResult(type, fromUrl) {
+  showScreen('Result');
+
+  // Update meta tags dynamically
+  document.title = `나의 추구미는 [${type.name}] ${type.emoji} - 추구미 테스트`;
+  updateMeta('og:title', `나의 추구미는 [${type.name}]! ${type.emoji}`);
+  updateMeta('og:description', `${type.subtitle} - ${type.description.substring(0, 80)}...`);
+  updateMeta('og:url', window.location.href);
+
+  const screen = $('screenResult');
+  screen.style.setProperty('--type-color', type.color);
+
+  const shareUrl = `${window.location.origin}${window.location.pathname}?result=${type.id}`;
+  const baseUrl = `${window.location.origin}${window.location.pathname}`;
+
+  const pinUrl = (q) => `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(q)}`;
+
+  screen.innerHTML = `
+    <div class="result-section">
+      <div class="result-hero" id="resultHero" style="--type-color: ${type.color}">
+        <div class="result-tag">YOUR AESTHETIC TYPE</div>
+        <span class="result-emoji">${type.emoji}</span>
+        <h1 class="result-name">${type.name}</h1>
+        <p class="result-subtitle">${type.subtitle}</p>
+        <div class="result-color-bar">
+          ${type.palette.map(c => `<div class="result-color-dot" style="background:${c}"></div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="result-section">
+      <div class="section-title">📖 너의 추구미는</div>
+      <div class="card">
+        <p class="card-description">${type.description}</p>
+      </div>
+    </div>
+
+    <div class="result-section">
+      <div class="section-title">💄 시그니처 스타일</div>
+      <div class="card">
+        <div class="style-grid">
+          <div class="style-item">
+            <div class="style-item-title">MAKEUP</div>
+            <div class="style-item-text">${type.makeup}</div>
+          </div>
+          <div class="style-item">
+            <div class="style-item-title">FASHION</div>
+            <div class="style-item-text">${type.fashion}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-section">
+      <div class="section-title">🔍 내 추구미 더 탐색하기</div>
+      <div class="card">
+        <div class="pin-buttons">
+          <a class="pin-btn" href="${pinUrl(type.pinterest_queries.makeup)}" target="_blank" rel="noopener">
+            <span class="pin-btn-left"><span class="pin-btn-icon">💄</span><span>메이크업 레퍼런스 보기</span></span>
+            <span class="pin-btn-arrow">→</span>
+          </a>
+          <a class="pin-btn" href="${pinUrl(type.pinterest_queries.fashion)}" target="_blank" rel="noopener">
+            <span class="pin-btn-left"><span class="pin-btn-icon">👗</span><span>패션 레퍼런스 보기</span></span>
+            <span class="pin-btn-arrow">→</span>
+          </a>
+          <a class="pin-btn" href="${pinUrl(type.pinterest_queries.celeb)}" target="_blank" rel="noopener">
+            <span class="pin-btn-left"><span class="pin-btn-icon">⭐</span><span>닮은 셀럽 스타일 보기</span></span>
+            <span class="pin-btn-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-section">
+      <div class="section-title">⭐ 너와 닮은 셀럽</div>
+      <div class="card">
+        <div class="celeb-grid">
+          <a class="celeb-card" href="https://instagram.com/${type.celeb_kr.instagram}" target="_blank" rel="noopener">
+            <div class="celeb-flag">🇰🇷</div>
+            <div class="celeb-label">국내 셀럽</div>
+            <div class="celeb-name">${type.celeb_kr.name}</div>
+            <div class="celeb-insta">@${type.celeb_kr.instagram}</div>
+          </a>
+          <a class="celeb-card" href="https://instagram.com/${type.celeb_global.instagram}" target="_blank" rel="noopener">
+            <div class="celeb-flag">🌎</div>
+            <div class="celeb-label">해외 셀럽</div>
+            <div class="celeb-name">${type.celeb_global.name}</div>
+            <div class="celeb-insta">@${type.celeb_global.instagram}</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-section">
+      <div class="section-title">💌 결과 공유하기</div>
+      <div class="card">
+        <div class="share-buttons">
+          <button class="share-btn" onclick="copyLink('${shareUrl}')">
+            <span class="share-btn-icon">🔗</span>
+            <span>링크 복사</span>
+          </button>
+          <button class="share-btn kakao" onclick="shareKakao('${type.id}')">
+            <span class="share-btn-icon">💬</span>
+            <span>카카오톡</span>
+          </button>
+          <button class="share-btn twitter" onclick="shareTwitter('${type.id}')">
+            <span class="share-btn-icon">𝕏</span>
+            <span>트위터</span>
+          </button>
+        </div>
+        <div class="insta-tip">📸 인스타 스토리에 결과 카드를 공유해보세요!<br/>아래 버튼으로 이미지를 저장할 수 있어요</div>
+        <button class="save-img-btn" onclick="saveResultImage('${type.id}')">📥 결과 이미지 저장</button>
+      </div>
+    </div>
+
+    <div class="result-section restart-area">
+      <button class="btn btn-primary" onclick="restartTest()">
+        <span>${fromUrl ? '✨ 나도 테스트하기' : '🔄 다시 테스트하기'}</span>
+      </button>
+      ${fromUrl ? '' : `<div style="margin-top:12px"><a class="btn-ghost" href="${baseUrl}" style="display:inline-block">친구에게 추천하기</a></div>`}
+    </div>
+
+    <div class="footer-credit">
+      © 추구미 테스트 · Made with 💜<br/>
+      당신의 미적 감성을 발견하세요
+    </div>
+  `;
+}
+
+function updateMeta(property, content) {
+  let el = document.querySelector(`meta[property="${property}"]`) ||
+           document.querySelector(`meta[name="${property}"]`);
+  if (el) el.setAttribute('content', content);
+}
+
+function restartTest() {
+  history.replaceState({}, '', window.location.pathname);
+  document.title = '추구미 테스트 - 나의 이상적 감성은?';
+  startTest();
+}
+
+/* ============================================ */
+/* SHARE                                         */
+/* ============================================ */
+
+function copyLink(url) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url)
+      .then(() => showToast('링크가 복사되었어요! 🎉'))
+      .catch(() => fallbackCopy(url));
+  } else {
+    fallbackCopy(url);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('링크가 복사되었어요! 🎉');
+  } catch (e) {
+    showToast('복사 실패. 직접 URL을 복사해주세요.');
+  }
+  document.body.removeChild(ta);
+}
+
+function shareKakao(typeId) {
+  const type = TYPES.find(t => t.id === typeId);
+  const shareUrl = `${window.location.origin}${window.location.pathname}?result=${typeId}`;
+
+  // If Kakao SDK is loaded and initialized:
+  if (window.Kakao && window.Kakao.isInitialized && window.Kakao.isInitialized()) {
+    try {
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: `나의 추구미는 [${type.name}]! ${type.emoji}`,
+          description: type.subtitle,
+          imageUrl: 'https://images.unsplash.com/photo-1522335789203-aaa8a73c1e02?w=800',
+          link: { mobileWebUrl: shareUrl, webUrl: shareUrl }
+        },
+        buttons: [{
+          title: '나도 테스트하기',
+          link: { mobileWebUrl: window.location.origin + window.location.pathname }
+        }]
+      });
+      return;
+    } catch (e) {
+      console.warn('Kakao share failed', e);
+    }
+  }
+  // Fallback - copy to clipboard with friendly message
+  copyLink(shareUrl);
+  showToast('카카오 SDK 미설정. 링크를 복사했어요! 💬');
+}
+
+function shareTwitter(typeId) {
+  const type = TYPES.find(t => t.id === typeId);
+  const shareUrl = `${window.location.origin}${window.location.pathname}?result=${typeId}`;
+  const text = `나의 추구미는 [${type.name}] ${type.emoji}\n${type.subtitle}\n\n#추구미테스트`;
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
+  window.open(url, '_blank', 'noopener');
+}
+
+/* ============================================ */
+/* SAVE AS IMAGE (html2canvas)                   */
+/* ============================================ */
+
+function saveResultImage(typeId) {
+  const type = TYPES.find(t => t.id === typeId);
+  const snap = $('snapCard');
+
+  snap.innerHTML = `
+    <div class="snap-card-inner" style="background:white;border-radius:28px;padding:48px 32px;text-align:center">
+      <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7C3AED;background:rgba(168,85,247,0.1);padding:6px 14px;border-radius:999px;margin-bottom:20px">YOUR AESTHETIC TYPE</div>
+      <div style="font-size:84px;margin-bottom:16px">${type.emoji}</div>
+      <div style="font-size:36px;font-weight:800;letter-spacing:-0.03em;margin-bottom:10px;color:#1A1A2E">${type.name}</div>
+      <div style="font-size:16px;color:#555;margin-bottom:24px;font-weight:500">${type.subtitle}</div>
+      <div style="height:1px;background:rgba(168,85,247,0.15);margin:24px 0"></div>
+      <div style="font-size:14px;line-height:1.7;color:#1A1A2E;text-align:left">${type.description}</div>
+      <div style="display:flex;justify-content:center;gap:8px;margin-top:24px">
+        ${type.palette.map(c => `<div style="width:28px;height:28px;border-radius:50%;background:${c};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.08)"></div>`).join('')}
+      </div>
+      <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(0,0,0,0.06);font-size:12px;color:#888">
+        ✨ 추구미 테스트 · 나의 미적 감성 유형
+      </div>
+    </div>
+  `;
+
+  showToast('이미지를 만들고 있어요...');
+
+  setTimeout(() => {
+    html2canvas(snap, {
+      backgroundColor: null,
+      scale: 2,
+      useCORS: true
+    }).then(canvas => {
+      canvas.toBlob(blob => {
+        if (!blob) { showToast('저장 실패. 다시 시도해주세요.'); return; }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `추구미_${type.name}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('이미지가 저장되었어요! 📸');
+      });
+    }).catch(err => {
+      console.error(err);
+      showToast('저장 실패. 스크린샷을 사용해주세요.');
+    });
+  }, 100);
+}
+
+</script>
+</body>
+</html>

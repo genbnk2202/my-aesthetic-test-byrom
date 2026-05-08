@@ -586,6 +586,26 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-primary);
 }
 
+.style-visual {
+  margin-bottom: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, rgba(248, 232, 238, 0.72), rgba(240, 230, 255, 0.92));
+}
+
+.style-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.style-visual img.fallback {
+  object-fit: contain;
+  padding: 16px;
+}
+
 .pin-buttons {
   display: flex;
   flex-direction: column;
@@ -743,6 +763,43 @@ a { color: inherit; text-decoration: none; }
   color: var(--accent-deep);
 }
 
+.ref-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ref-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  background: rgba(168, 85, 247, 0.07);
+  border: 1px solid rgba(168, 85, 247, 0.12);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-deep);
+  transition: var(--transition);
+}
+
+.ref-action-btn:hover {
+  background: rgba(168, 85, 247, 0.12);
+  transform: translateY(-1px);
+}
+
+.ref-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
 .celeb-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -751,10 +808,11 @@ a { color: inherit; text-decoration: none; }
 
 .celeb-card {
   background: rgba(168, 85, 247, 0.05);
-  border-radius: 14px;
-  padding: 16px 14px;
+  border-radius: 16px;
+  overflow: hidden;
   text-align: center;
   transition: var(--transition);
+  border: 1px solid rgba(168, 85, 247, 0.1);
 }
 
 .celeb-card:hover {
@@ -762,9 +820,42 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-2px);
 }
 
+.celeb-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, rgba(248, 232, 238, 0.7), rgba(240, 230, 255, 0.9));
+  overflow: hidden;
+}
+
+.celeb-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.celeb-media img.fallback {
+  object-fit: contain;
+  padding: 18px;
+}
+
 .celeb-flag {
-  font-size: 22px;
-  margin-bottom: 6px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.94);
+  font-size: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.celeb-body {
+  padding: 14px 12px 16px;
 }
 
 .celeb-label {
@@ -784,6 +875,27 @@ a { color: inherit; text-decoration: none; }
   font-size: 12px;
   color: var(--accent-deep);
   font-weight: 500;
+}
+
+.celeb-search-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.celeb-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(168, 85, 247, 0.12);
+  color: var(--accent-deep);
 }
 
 /* Share Buttons */
@@ -1493,29 +1605,293 @@ function makeFallbackData(label, emoji) {
   return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
 }
 
+const GENERIC_FALLBACKS = {
+  makeup: [
+    'https://images.pexels.com/photos/12323040/pexels-photo-12323040.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'https://images.pexels.com/photos/4977513/pexels-photo-4977513.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'https://images.pexels.com/photos/13022138/pexels-photo-13022138.jpeg?auto=compress&cs=tinysrgb&w=1200'
+  ],
+  fashion: [
+    'https://images.pexels.com/photos/35644553/pexels-photo-35644553.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'https://images.pexels.com/photos/13196294/pexels-photo-13196294.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'https://images.pexels.com/photos/34977351/pexels-photo-34977351.jpeg?auto=compress&cs=tinysrgb&w=1200'
+  ],
+  celeb: [
+    'https://images.pexels.com/photos/12518866/pexels-photo-12518866.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'https://images.pexels.com/photos/10898180/pexels-photo-10898180.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'https://images.pexels.com/photos/13448978/pexels-photo-13448978.jpeg?auto=compress&cs=tinysrgb&w=1200'
+  ]
+};
+
+const CELEB_IMAGE_CANDIDATES = {
+  clean_girl: {
+    kr: [
+      'https://images.pexels.com/photos/12323040/pexels-photo-12323040.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/35644553/pexels-photo-35644553.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hailey_Bieber_at_the_2026_WWD_Style_Awards.png?width=1200',
+      'https://images.pexels.com/photos/35644553/pexels-photo-35644553.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  lovely_romantic: {
+    kr: [
+      'https://images.pexels.com/photos/4977513/pexels-photo-4977513.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/13196294/pexels-photo-13196294.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Sydney_Sweeney_at_the_2024_Toronto_International_Film_Festival_04.jpg?width=1200',
+      'https://images.pexels.com/photos/13196294/pexels-photo-13196294.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  chic_modern: {
+    kr: [
+      'https://images.pexels.com/photos/13022138/pexels-photo-13022138.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/34977351/pexels-photo-34977351.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bella_Hadid_Cannes_2018.jpg?width=1200',
+      'https://images.pexels.com/photos/34977351/pexels-photo-34977351.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  vintage_retro: {
+    kr: [
+      'https://images.pexels.com/photos/14524691/pexels-photo-14524691.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/5397289/pexels-photo-5397289.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Alexa_Chung_2015.jpg?width=1200',
+      'https://images.pexels.com/photos/5397289/pexels-photo-5397289.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  sporty_healthy: {
+    kr: [
+      'https://images.pexels.com/photos/9262841/pexels-photo-9262841.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/14205006/pexels-photo-14205006.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Pamela_Reif.jpg?width=1200',
+      'https://images.pexels.com/photos/14205006/pexels-photo-14205006.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  dark_academia: {
+    kr: [
+      'https://images.pexels.com/photos/17948352/pexels-photo-17948352.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/8453658/pexels-photo-8453658.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Emma_Watson_Cannes_2013.jpg?width=1200',
+      'https://images.pexels.com/photos/8453658/pexels-photo-8453658.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  balletcore: {
+    kr: [
+      'https://images.pexels.com/photos/6140950/pexels-photo-6140950.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/4554217/pexels-photo-4554217.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Natalie_Portman_Cannes_2015_5.jpg?width=1200',
+      'https://images.pexels.com/photos/4554217/pexels-photo-4554217.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  girl_crush: {
+    kr: [
+      'https://images.pexels.com/photos/30755171/pexels-photo-30755171.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/7578387/pexels-photo-7578387.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/DuaLipa-byPhilipRomano.jpg?width=1200',
+      'https://images.pexels.com/photos/7578387/pexels-photo-7578387.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  cozy_natural: {
+    kr: [
+      'https://images.pexels.com/photos/12322890/pexels-photo-12322890.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/10215230/pexels-photo-10215230.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Dakota_Johnson_(cropped).jpg?width=1200',
+      'https://images.pexels.com/photos/10215230/pexels-photo-10215230.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  },
+  y2k_pop: {
+    kr: [
+      'https://images.pexels.com/photos/13448978/pexels-photo-13448978.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://images.pexels.com/photos/17243500/pexels-photo-17243500.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ],
+    global: [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Doja_Cat_promo_image.jpg?width=1200',
+      'https://images.pexels.com/photos/17243500/pexels-photo-17243500.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    ]
+  }
+};
+
+function uniqueList(arr) {
+  return [...new Set((arr || []).filter(Boolean))];
+}
+
+function getLabelKey(label) {
+  if (label === '메이크업') return 'makeup';
+  if (label === '패션') return 'fashion';
+  return 'celeb';
+}
+
+function getLabelItem(typeId, label) {
+  const items = REFERENCE_GALLERIES[typeId] || [];
+  return items.find(item => item.label === label) || null;
+}
+
+function normalizeGalleryItem(type, item) {
+  const labelKey = getLabelKey(item.label);
+  const siblingImages = (REFERENCE_GALLERIES[type.id] || [])
+    .filter(other => other !== item)
+    .map(other => other.image);
+  return {
+    ...item,
+    labelKey,
+    images: uniqueList([item.image, ...(item.backups || []), ...siblingImages, ...(GENERIC_FALLBACKS[labelKey] || [])]),
+    pinterestUrl: `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(type.pinterest_queries[labelKey])}`,
+    googleUrl: `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(type.pinterest_queries[labelKey])}`,
+    sourceUrl: item.link
+  };
+}
+
+function imageAttr(candidates) {
+  const list = uniqueList(candidates);
+  const first = list[0] || '';
+  return `src="${first}" data-fallbacks='${JSON.stringify(list)}' data-fallback-index="0"`;
+}
+
+function handleImageError(img) {
+  try {
+    const list = JSON.parse(img.dataset.fallbacks || '[]');
+    const nextIndex = Number(img.dataset.fallbackIndex || '0') + 1;
+    if (list[nextIndex]) {
+      img.dataset.fallbackIndex = String(nextIndex);
+      img.src = list[nextIndex];
+      return;
+    }
+  } catch (error) {
+    console.warn('image fallback parse error', error);
+  }
+
+  const label = img.dataset.fallbackLabel || 'image';
+  const emoji = img.dataset.fallbackEmoji || '✨';
+  img.onerror = null;
+  img.src = makeFallbackData(label, emoji);
+  img.classList.add('fallback');
+}
+
 function getPreviewImage(typeId) {
-  return REFERENCE_GALLERIES[typeId]?.[0]?.image || 'https://images.unsplash.com/photo-1522335789203-aaa8a73c1e02?w=1200&q=80';
+  const item = getLabelItem(typeId, '메이크업') || REFERENCE_GALLERIES[typeId]?.[0];
+  return item?.image || 'https://images.unsplash.com/photo-1522335789203-aaa8a73c1e02?w=1200&q=80';
+}
+
+function renderSignatureStyle(type) {
+  const makeupItem = normalizeGalleryItem(type, getLabelItem(type.id, '메이크업'));
+  const fashionItem = normalizeGalleryItem(type, getLabelItem(type.id, '패션'));
+
+  return `
+    <div class="style-grid">
+      <div class="style-item">
+        <div class="style-visual">
+          <img ${imageAttr(makeupItem.images)} alt="${type.name} 메이크업 이미지" loading="lazy" referrerpolicy="no-referrer" data-fallback-label="메이크업" data-fallback-emoji="💄" onerror="handleImageError(this)">
+        </div>
+        <div class="style-item-title">MAKEUP</div>
+        <div class="style-item-text">${type.makeup}</div>
+      </div>
+      <div class="style-item">
+        <div class="style-visual">
+          <img ${imageAttr(fashionItem.images)} alt="${type.name} 패션 이미지" loading="lazy" referrerpolicy="no-referrer" data-fallback-label="패션" data-fallback-emoji="👗" onerror="handleImageError(this)">
+        </div>
+        <div class="style-item-title">FASHION</div>
+        <div class="style-item-text">${type.fashion}</div>
+      </div>
+    </div>
+  `;
 }
 
 function renderReferenceGallery(type) {
-  const items = REFERENCE_GALLERIES[type.id] || [];
+  const items = (REFERENCE_GALLERIES[type.id] || []).map(item => normalizeGalleryItem(type, item));
   return `
-    <div class="gallery-note">무료 사용 가능한 소스 기준으로 선별한 레퍼런스입니다. 이미지를 누르면 원본 출처 페이지로 이동합니다.</div>
+    <div class="gallery-note">카드 이미지는 바로 확인하고, 아래 버튼으로 Pinterest 또는 Google 이미지 검색 결과로 바로 이어서 탐색할 수 있습니다.</div>
     <div class="gallery-grid">
       ${items.map(item => `
-        <a class="ref-card" href="${item.link}" target="_blank" rel="noopener">
-          <div class="ref-image-wrap">
-            <img class="ref-image" src="${item.image}" alt="${type.name} ${item.label} 레퍼런스" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=makeFallbackData('${item.label}','${item.emoji}');this.classList.add('fallback');">
-            <div class="ref-chip">${item.emoji} ${item.label}</div>
-          </div>
+        <div class="ref-card">
+          <a href="${item.pinterestUrl}" target="_blank" rel="noopener">
+            <div class="ref-image-wrap">
+              <img class="ref-image" ${imageAttr(item.images)} alt="${type.name} ${item.label} 레퍼런스" loading="lazy" referrerpolicy="no-referrer" data-fallback-label="${item.label}" data-fallback-emoji="${item.emoji}" onerror="handleImageError(this)">
+              <div class="ref-chip">${item.emoji} ${item.label}</div>
+            </div>
+          </a>
           <div class="ref-body">
             <div class="ref-title">${item.title}</div>
             <div class="ref-caption">${item.caption}</div>
             <div class="ref-meta">${item.source} · 무료 소스</div>
-            <div class="ref-link">원본 보기 ↗</div>
+            <div class="ref-actions">
+              <a class="ref-action-btn" href="${item.pinterestUrl}" target="_blank" rel="noopener">📌 Pinterest</a>
+              <a class="ref-action-btn" href="${item.googleUrl}" target="_blank" rel="noopener">🔎 Google 이미지</a>
+            </div>
+            <a class="ref-source-link" href="${item.sourceUrl}" target="_blank" rel="noopener">원본 출처 보기 ↗</a>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderCelebCards(type) {
+  const celebItem = getLabelItem(type.id, '셀럽');
+  const celebCandidates = uniqueList([
+    ...(CELEB_IMAGE_CANDIDATES[type.id]?.global || []),
+    celebItem?.image,
+    ...(GENERIC_FALLBACKS.celeb || [])
+  ]);
+  const krCandidates = uniqueList([
+    ...(CELEB_IMAGE_CANDIDATES[type.id]?.kr || []),
+    getLabelItem(type.id, '메이크업')?.image,
+    getLabelItem(type.id, '패션')?.image,
+    ...(GENERIC_FALLBACKS.celeb || [])
+  ]);
+  const globalSearch = encodeURIComponent(`${type.celeb_global.name} ${type.pinterest_queries.celeb}`);
+  const krSearch = encodeURIComponent(`${type.celeb_kr.name} ${type.name} style`);
+
+  return `
+    <div class="celeb-grid">
+      <div class="celeb-card">
+        <a href="https://instagram.com/${type.celeb_kr.instagram}" target="_blank" rel="noopener">
+          <div class="celeb-media">
+            <img ${imageAttr(krCandidates)} alt="${type.celeb_kr.name} 스타일 이미지" loading="lazy" referrerpolicy="no-referrer" data-fallback-label="셀럽" data-fallback-emoji="⭐" onerror="handleImageError(this)">
+            <div class="celeb-flag">🇰🇷</div>
           </div>
         </a>
-      `).join('')}
+        <div class="celeb-body">
+          <div class="celeb-label">국내 셀럽</div>
+          <div class="celeb-name">${type.celeb_kr.name}</div>
+          <div class="celeb-insta">@${type.celeb_kr.instagram}</div>
+          <div class="celeb-search-links">
+            <a class="celeb-search-btn" href="https://instagram.com/${type.celeb_kr.instagram}" target="_blank" rel="noopener">인스타 바로가기</a>
+            <a class="celeb-search-btn" href="https://www.google.com/search?tbm=isch&q=${krSearch}" target="_blank" rel="noopener">이미지 검색</a>
+          </div>
+        </div>
+      </div>
+      <div class="celeb-card">
+        <a href="https://instagram.com/${type.celeb_global.instagram}" target="_blank" rel="noopener">
+          <div class="celeb-media">
+            <img ${imageAttr(celebCandidates)} alt="${type.celeb_global.name} 스타일 이미지" loading="lazy" referrerpolicy="no-referrer" data-fallback-label="셀럽" data-fallback-emoji="⭐" onerror="handleImageError(this)">
+            <div class="celeb-flag">🌎</div>
+          </div>
+        </a>
+        <div class="celeb-body">
+          <div class="celeb-label">해외 셀럽</div>
+          <div class="celeb-name">${type.celeb_global.name}</div>
+          <div class="celeb-insta">@${type.celeb_global.instagram}</div>
+          <div class="celeb-search-links">
+            <a class="celeb-search-btn" href="https://instagram.com/${type.celeb_global.instagram}" target="_blank" rel="noopener">인스타 바로가기</a>
+            <a class="celeb-search-btn" href="https://www.google.com/search?tbm=isch&q=${globalSearch}" target="_blank" rel="noopener">이미지 검색</a>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -1924,16 +2300,7 @@ function renderResult(type, fromUrl) {
     <div class="result-section">
       <div class="section-title">💄 시그니처 스타일</div>
       <div class="card">
-        <div class="style-grid">
-          <div class="style-item">
-            <div class="style-item-title">MAKEUP</div>
-            <div class="style-item-text">${type.makeup}</div>
-          </div>
-          <div class="style-item">
-            <div class="style-item-title">FASHION</div>
-            <div class="style-item-text">${type.fashion}</div>
-          </div>
-        </div>
+        ${renderSignatureStyle(type)}
       </div>
     </div>
 
@@ -1947,20 +2314,7 @@ function renderResult(type, fromUrl) {
     <div class="result-section">
       <div class="section-title">⭐ 너와 닮은 셀럽</div>
       <div class="card">
-        <div class="celeb-grid">
-          <a class="celeb-card" href="https://instagram.com/${type.celeb_kr.instagram}" target="_blank" rel="noopener">
-            <div class="celeb-flag">🇰🇷</div>
-            <div class="celeb-label">국내 셀럽</div>
-            <div class="celeb-name">${type.celeb_kr.name}</div>
-            <div class="celeb-insta">@${type.celeb_kr.instagram}</div>
-          </a>
-          <a class="celeb-card" href="https://instagram.com/${type.celeb_global.instagram}" target="_blank" rel="noopener">
-            <div class="celeb-flag">🌎</div>
-            <div class="celeb-label">해외 셀럽</div>
-            <div class="celeb-name">${type.celeb_global.name}</div>
-            <div class="celeb-insta">@${type.celeb_global.instagram}</div>
-          </a>
-        </div>
+        ${renderCelebCards(type)}
       </div>
     </div>
 
